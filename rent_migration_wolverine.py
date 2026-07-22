@@ -11,7 +11,7 @@ def clean_and_convert_dates(val):
     if isinstance(val, pd.Timestamp):
         return val.to_pydatetime()
     return val
-
+ 
 def import_pipeline_to_mongodb(rent_file, link_file, mongo_uri="mongodb://localhost:27017/"):
     # 1. Establish MongoDB Connection
     print("Connecting to MongoDB...")

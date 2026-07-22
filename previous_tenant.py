@@ -9,7 +9,7 @@ collection = db["properties"] # Change to your collection name
 
 # 2. Read the excel sheet
 df = pd.read_excel('PreviousTenancy.xlsx')
-
+ 
 def format_date(val):
     if pd.isna(val):
         return None
