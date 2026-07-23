@@ -12,10 +12,10 @@ def clean_and_convert_dates(val):
         return val.to_pydatetime()
     return val
  
-def import_pipeline_to_mongodb(rent_file, link_file, mongo_uri="mongodb://localhost:27017/"):
+def import_pipeline_to_mongodb(rent_file, link_file):
     # 1. Establish MongoDB Connection
     print("Connecting to MongoDB...")
-    client = MongoClient("mongodb+srv://wpsloperations:MHczqnxvMzav3Phv@wpsl-test.4jjnwbf.mongodb.net/")
+    client = MongoClient("mongodb+srv://wpsloperations:MHczqnxvMzav3Phv@wpsl-test.4jjnwbf.mongodb.net", tlsInsecure=True)
     db = client["wolverine"]
     collection_name = "rent_transactions"
     
@@ -28,7 +28,7 @@ def import_pipeline_to_mongodb(rent_file, link_file, mongo_uri="mongodb://localh
     
     # 2. Load the Excel sheets
     print("Reading Excel files into DataFrames...")
-    df_rent = pd.read_excel(rent_file, sheet_name='Rent_WOL')
+    df_rent = pd.read_excel(rent_file, sheet_name='Rent')
     df_link = pd.read_excel(link_file, sheet_name='PO_Rent_Link')
     
     # Replace NaN values globally with Python None so MongoDB registers them as null
@@ -147,7 +147,6 @@ def import_pipeline_to_mongodb(rent_file, link_file, mongo_uri="mongodb://localh
 if __name__ == "__main__":
     # Adjust files names and MongoDB URI string if necessary
     import_pipeline_to_mongodb(
-        rent_file="wolRentwol.xlsx",
-        link_file="PO_Rent_Link.xlsx",
-        mongo_uri="mongodb://localhost:27017/"
+        rent_file="Rent_WOL.xlsx",
+        link_file="PO_Rent_Link.xlsx"
     )
